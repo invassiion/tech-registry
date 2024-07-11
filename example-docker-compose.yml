@@ -1,0 +1,29 @@
+##version: '3.8'
+##services:
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tech_registry_db
+#      SPRING_DATASOURCE_USERNAME:
+#      SPRING_DATASOURCE_PASSWORD:
+#    depends_on:
+#      - db
+#
+#  db:
+#    image: postgres:latest
+#    container_name: tech_registry_db
+#    environment:
+#      POSTGRES_USER:
+#      POSTGRES_PASSWORD:
+#      POSTGRES_DB: tech_registry_db
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data
+#
+#volumes:
+#  pgdata:

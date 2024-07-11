@@ -1,0 +1,8 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/techregistry
+spring.datasource.username=
+spring.datasource.password=
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+springdoc.api-docs.path=/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
