@@ -38,6 +38,7 @@ docker-compose up --build
     mvn clean install
  - Запустите приложение:
     mvn spring-boot:run
+
 ## Документация API 
 Документация API доступна по следующему URL:
 http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/vacuum-model-controller/createVacuumModel

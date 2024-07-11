@@ -4,6 +4,7 @@ import com.example.techregistry.configuration.BaseRoutes;
 import com.example.techregistry.model.Equipment;
 import com.example.techregistry.service.EquipmentService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,21 +22,40 @@ public class EquipmentController {
     private final EquipmentService equipmentService;
 
 
-    @Operation(summary = "Получить все оборудование", description = "Возвращает список всего оборудования")
-    @ApiResponse(responseCode = "200", description = "Список оборудования",
-            content = @Content(mediaType = "application/json",
-                    schema = @Schema(implementation = Equipment.class),
-                    examples = @ExampleObject(name = "Пример оборудования", value = "{\n" +
-                            "  \"id\": 1,\n" +
-                            "  \"name\": \"Стиральная машина\",\n" +
-                            "  \"description\": \"Модель X1\",\n" +
-                            "  \"serialNumber\": \"EQ123456\",\n" +
-                            "  \"price\": 499.99,\n" +
-                            "  \"inStock\": true\n" +
-                            "}")))
+    /**
+     * Получить все оборудование с возможностью сортировки.
+     * @param sortBy Поле для сортировки (например, "name" или "price")
+     * @param sortOrder Направление сортировки ("asc" для по возрастанию, "desc" для по убыванию)
+     * @return Список техники, отсортированный по указанному критерию
+     */
+    @Operation(
+            summary = "Получить все оборудование",
+            description = "Возвращает список всего оборудования с возможностью сортировки по полю и направлению.",
+            parameters = {
+                    @Parameter(name = "sortBy", description = "Поле для сортировки (например, 'name' или 'price')", example = "name", required = false),
+                    @Parameter(name = "sortOrder", description = "Направление сортировки ('asc' для по возрастанию, 'desc' для по убыванию)", example = "asc", required = false)
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Список оборудования",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = Equipment.class),
+                                    examples = @ExampleObject(name = "Пример оборудования", value = "{\n" +
+                                            "  \"id\": 1,\n" +
+                                            "  \"name\": \"Стиральная машина\",\n" +
+                                            "  \"description\": \"Модель X1\",\n" +
+                                            "  \"serialNumber\": \"EQ123456\",\n" +
+                                            "  \"price\": 499.99,\n" +
+                                            "  \"inStock\": true\n" +
+                                            "}"))
+                    )
+            }
+    )
     @GetMapping
-    public List<Equipment> getAllEquipment() {
-        return equipmentService.getAllEquipment();
+    public List<Equipment> getAllEquipment(
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder) {
+        return equipmentService.getAllEquipment(sortBy, sortOrder);
     }
 
     @Operation(summary = "Получить оборудование по ID", description = "Возвращает оборудование по ID")

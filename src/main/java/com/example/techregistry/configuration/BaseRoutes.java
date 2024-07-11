@@ -7,7 +7,7 @@ public class BaseRoutes {
 
     public static final String COMPUTER= API + "/computermodels";
 
-    public static final String SMARTPHONE = API + "smartphonemodels";
+    public static final String SMARTPHONE = API + "/smartphonemodels";
 
     public static final String TVMODEL = API + "/tvmodels";
 
